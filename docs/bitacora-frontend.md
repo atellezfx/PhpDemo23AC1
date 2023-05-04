@@ -9,10 +9,10 @@
     $ npm -v
     ```
 
-3. Instalar Angular globalmente, con el siguiente comando
+3. Instalar Angular v.15 globalmente, con el siguiente comando
 
     ```bash
-    $ npm install -g @angular/cli
+    $ npm install -g @angular/cli@v15-lts
     ```
 
 4. Creación del proyecto, con el siguiente comando
