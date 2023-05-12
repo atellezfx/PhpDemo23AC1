@@ -1,11 +1,15 @@
-<div class="row">
-  <div class="col">
-    <app-catalogo></app-catalogo>
+<nav class="navbar navbar-expand bg-primary navbar-dark">
+  <div class="container-fluid">
+    <span class="navbar-brand ms-2 mb-0 h1">
+      <i class="fa-solid fa-paw me-2"></i>{{tituloApp}}
+    </span>
+    <div class="navbar-nav align-items-center">
+      <button class="btn btn-sm text-light bg-primary me-4">Agregar</button>
+      <button class="btn btn-sm text-light bg-secondary">Cerrar Sesión</button>
+    </div>
   </div>
-  <div class="col">
-    <app-login></app-login>
-  </div>
-  <div class="col">
-    <app-mascota></app-mascota>
-  </div>
+</nav>
+
+<div class="container mt-4">
+  <router-outlet></router-outlet>
 </div>
