@@ -32,7 +32,7 @@
     $ composer require tuupola/cors-middleware --with-all-dependencies
     $ composer require tuupola/slim-jwt-auth
     $ composer require rbdwllr/psr-jwt
-    $ composer require monolog/monolog:^2.7
+    $ composer require monolog/monolog
 
     ```
 
