@@ -5,6 +5,8 @@ use JsonSerializable;
 
 class Tipo implements JsonSerializable {
 
+    public const SQL_SELECT_TIPOS = 'SELECT * FROM tipo';
+
     private int $id;
     private string $descripcion;
 
