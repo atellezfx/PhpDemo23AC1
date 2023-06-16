@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Mensaje } from 'src/app/models/mensaje';
+import { Token } from 'src/app/models/token';
+import { Usuario } from 'src/app/models/usuario';
 import { LoginService } from 'src/app/services/login.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +22,25 @@ export class LoginComponent {
   }
 
   public enviarDatos():void {
-    this.loginSvc.login( this.formulario.value ).subscribe({
-      next: datos => this.router.navigateByUrl('/catalogo'),
+    const credenciales = this.formulario.value;
+    console.log(credenciales);
+    this.loginSvc.login( credenciales ).subscribe({
+      next: datos => this.procesarRespuesta( datos,  credenciales),
       error: datos => this.mensajeError = datos
     });
   }
+
+  public procesarRespuesta(datos:Token|Mensaje, usuario:Usuario): void {
+    if( 'token' in datos ) {
+      localStorage.setItem( environment.usuarioActual, usuario.username );
+      localStorage.setItem( environment.authToken, datos.token );
+      this.router.navigateByUrl('/catalogo');
+    } else {
+      localStorage.removeItem( environment.usuarioActual );
+      localStorage.removeItem( environment.authToken );
+      this.mensajeError = `${datos.codigo}: ${datos.mensaje}`;
+    }
+  }
+
 
 }

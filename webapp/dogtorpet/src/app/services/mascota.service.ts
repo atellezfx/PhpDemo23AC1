@@ -1,44 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Mascota } from '../models/mascota';
-import { mascotasPrueba } from '../models/datos-prueba';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MascotaService {
 
-  // TODO: Implementar URL de conexión con el backend (Servidor)
+  private readonly servidor = `${environment.urlServidor}/mascota`;
 
-  constructor() { }
+  constructor( private cliente:HttpClient ) { }
 
   public obtener( id:number ): Observable<Mascota> {
-    // Código que se simplificará al comunicarse con el servidor
-    const result = mascotasPrueba.filter( m => m.id == id  );
-    return of( result[0] );
+    return this.cliente.get<Mascota>(`${this.servidor}/${id}`);
   }
 
   public lista( propietario:string ): Observable<Mascota[]> {
-    const result = mascotasPrueba.filter( m => m.propietario == propietario  );
-    return of( result );
+    return this.cliente.get<Mascota[]>(`${this.servidor}/catalogo/${propietario}`);
   }
 
   public insertar( m:Mascota ): Observable<Mascota> {
-    // TODO: Implementar el proceso de inserción en el backend
-    console.log(`Insertando registro de: ${m.nombre}`);
-    return of( m );
+    // console.log(`Insertando registro de: ${m.nombre}`);
+    return this.cliente.post<Mascota>(this.servidor, m);
   }
 
   public editar( m:Mascota ): Observable<Mascota> {
-    // TODO: Implementar el proceso de edición en el backend
-    console.log(`Editando registro de: ${m.nombre}`);
-    return of( m );
+    // console.log(`Editando registro de: ${m.nombre}`);
+    return this.cliente.put<Mascota>(`${this.servidor}/${m.id}`, m);
   }
 
   public eliminar( m:Mascota ): Observable<Mascota> {
-    // TODO: Implementar el proceso de eliminación en el backend
-    console.log(`Eliminando registro de: ${m.nombre}`);
-    return of( m );
+    // console.log(`Eliminando registro de: ${m.nombre}`);
+    return this.cliente.delete<Mascota>(`${this.servidor}/${m.id}`);
   }
 
 

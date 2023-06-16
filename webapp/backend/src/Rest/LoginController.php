@@ -19,8 +19,8 @@ class LoginController {
             $credenciales = json_decode( $req->getBody(), true );
             $conexion = DataSource::abrirConexion();
             $sentencia = $conexion->prepare( Usuario::SQL_SELECT_LOGIN );
-            $sentencia->bindParam(1, $args['username']);
-            $sentencia->bindParam(2, $args['password']);
+            $sentencia->bindParam(1, $credenciales['username']);
+            $sentencia->bindParam(2, $credenciales['password']);
             $sentencia->execute();
             $resultset = $sentencia->fetch( PDO::FETCH_ASSOC );
             if( $resultset ) {
